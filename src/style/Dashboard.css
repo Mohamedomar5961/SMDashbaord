@@ -1,0 +1,106 @@
+:root {
+  --dark: #262626;
+  --lime: #f7fee7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.Dashboard {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--dark);
+  padding: 48px;
+}
+.sidebar {
+  width: 20%;
+  height: 100%;
+  margin-right: 10px;
+  border-radius: 12px;
+  padding: 16px;
+}
+.container {
+  width: 80%;
+  height: 100%;
+  border: 1px solid var(--lime);
+  margin-left: 10px;
+  border-radius: 12px;
+}
+.profile_info {
+  width: 100%;
+  padding: 8px;
+}
+.profile {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}
+.profile img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.name_type {
+  padding: 12px 0 0 12px;
+}
+.profile_name {
+  color: var(--lime);
+  font-size: 15px;
+}
+.profile_type {
+  color: #f7fee789;
+  font-size: 12px;
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0 8px 0;
+}
+.info div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.info div p {
+  font-size: 15px;
+  color: var(--lime);
+}
+.link_container {
+  width: 100%;
+}
+.link_container button {
+  background-color: transparent;
+  font-size: 20px;
+  color: var(--lime);
+  margin: 16px 0 16px 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 27px 10px 27px 10px;
+  font-weight: 500;
+}
+.link_container button:focus {
+  background-color: var(--lime);
+  color: var(--dark);
+}
+.link_container svg {
+  width: 35px;
+}
+.link_container svg rect {
+  stroke: var(--lime);
+}
+.link_container p {
+  margin-left: 8px;
+}
+
+.link_container button:focus svg rect {
+  stroke: var(--dark);
+}
