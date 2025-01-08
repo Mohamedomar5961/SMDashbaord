@@ -15,6 +15,23 @@
   background-color: var(--dark);
   padding: 48px;
 }
+.logoutBtn{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 48px;
+  background-color: var(--lime);
+  color: var(--dark);
+  border: none;
+  width: 100px;
+  height: 30px;
+  border-radius: 12px;
+}
+.logoutBtn:hover{
+  background-color: var(--dark);
+  color: var(--lime);
+  border: 1px solid var(--lime);
+}
 .sidebar {
   width: 20%;
   height: 100%;
@@ -28,6 +45,9 @@
   border: 1px solid var(--lime);
   margin-left: 10px;
   border-radius: 12px;
+}
+.container div{
+  color: var(--lime);
 }
 .profile_info {
   width: 100%;

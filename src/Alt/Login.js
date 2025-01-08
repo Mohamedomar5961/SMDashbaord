@@ -20,16 +20,21 @@ function Login() {
     });
     if (senderMan.status == 200) {
       const response = await senderMan.json();
-      console.log(response);
+      fetch(`http://localhost:3001/dashboard`, {
+        headers: {
+          Authorization: `Bearer ${response.accessToken}`,
+        },
+      });
+      localStorage.setItem("accessToken", response.accessToken);
       navigate("/dashboard");
     }
     if (senderMan.status == 404) {
       const response = await senderMan.json();
-      console.log(response);
+      console.log("404: ",response);
     }
     if (senderMan.status == 500) {
       const response = await senderMan.json();
-      console.log(response);
+      console.log("500: ",response);
     }
   }
 

@@ -1,36 +1,46 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../style/Dashboard.css";
 import { useState, useEffect } from "react";
 import { ReactComponent as DashboardIcon } from "../icons/Dashboard-Icon.svg";
 import { ReactComponent as AnalyticsIcon } from "../icons/Analytics-Icon.svg";
 import { ReactComponent as PostsIcon } from "../icons/Post-Icon.svg";
 import { ReactComponent as AccountsIcon } from "../icons/Account-Icon.svg";
+import DashboardTab from "./Tabs/dashboardTab";
+import AnalyticsTab from "./Tabs/analyticsTab";
+import PostsTab from "./Tabs/postsTab";
+import AccountsTab from "./Tabs/accountsTab";
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [info, setInfo] = useState({});
   const [focus, setFocus] = useState("");
   const userInfo = {};
   const location = useLocation();
   const { id } = location.state || {};
 
-  function focuser() {
-    if (focus === 1) {
-    }
-  }
+
   async function getPerson() {
-    const response = await fetch("http://localhost:3001/dashboard");
-    console.log("Hello::::: ");
+    const response = await fetch("http://localhost:3001/dashboard", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
     if (response.ok) {
       const data = await response.json();
-      console.log("Hello::::: ", data);
       // setInfo(data);
-    } else {
+    } if (response.status == 403){
+      navigate("/");
+    } 
+    else {
       console.log("Something went wront");
     }
   }
   useEffect(() => {
     getPerson();
-    // setFocus(localStorage.getItem("page"));
+    if (localStorage.getItem("page") == null) {
+      localStorage.setItem("page", 1);
+    }
+    setFocus(localStorage.getItem("page"));
   }, []);
 
   var name;
@@ -98,9 +108,29 @@ function Dashboard() {
   };
 
   svgSty();
+  function logout(){
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("page");
+    navigate("/");
+  }
+  const renderContent = () => {
+    switch (focus) {
+        case "1":
+            return <DashboardTab />
+        case "2":
+            return <AnalyticsTab />
+        case "3":
+            return <PostsTab />
+        case "4":
+            return <AccountsTab />
+        default:
+            return <DashboardTab />
+    }
+};
 
   return (
     <div className="Dashboard">
+      <button  className="logoutBtn" onClick={() => logout()}>Logout</button>
       <div className="sidebar">
         <div className="profile_info">
           <div className="profile">
@@ -141,6 +171,7 @@ function Dashboard() {
             className="analyticsBtn"
             onClick={() => focusUpdate(2)}
             style={style(2)}
+
           >
             <AnalyticsIcon />
             <p>Analytics</p>
@@ -163,7 +194,10 @@ function Dashboard() {
           </button>
         </div>
       </div>
-      <div className="container"></div>
+      <div className="container">
+      {renderContent()}
+      </div>
+      
     </div>
   );
 }
